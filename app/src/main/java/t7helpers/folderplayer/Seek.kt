@@ -1,8 +1,6 @@
 package t7helpers.folderplayer
 
 import kotlin.math.abs
-import kotlin.math.pow
-import kotlin.math.sign
 
 /** Jumps and scrubbing within the current file. */
 object Seek {
@@ -28,17 +26,13 @@ object Seek {
 
     /**
      * How far a horizontal drag over [fraction] of the swipe area's width (negative to the
-     * left) moves: small drags move a little, for fine positioning, and a drag across the
-     * whole width moves twice the file's length, so any point can be reached from anywhere.
+     * left) moves: in proportion, [SCRUB_WIDTH_MS] for the whole width, whatever the file's
+     * length. Longer moves are for the jump buttons, or several drags.
      */
-    fun scrubDelta(fraction: Float, durationMs: Long): Long {
-        val span = 2.0 * durationMs.coerceAtLeast(MIN_SCRUB_SPAN_MS)
-        val f = fraction.toDouble().coerceIn(-1.0, 1.0)
-        return (sign(f) * abs(f).pow(3) * span).toLong()
-    }
+    fun scrubDelta(fraction: Float): Long = (fraction.coerceIn(-1f, 1f) * SCRUB_WIDTH_MS).toLong()
 
-    /** Files shorter than this scrub as if they were this long. */
-    private const val MIN_SCRUB_SPAN_MS = 60_000L
+    /** What a drag across the whole swipe area moves. */
+    const val SCRUB_WIDTH_MS = 120_000L
 
     /** "4:05", "1:02:03". */
     fun format(ms: Long): String {

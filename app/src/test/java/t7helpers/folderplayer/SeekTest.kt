@@ -1,7 +1,6 @@
 package t7helpers.folderplayer
 
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class SeekTest {
@@ -22,20 +21,15 @@ class SeekTest {
     }
 
     @Test
-    fun scrubIsFineForSmallDragsAndReachesEverythingAcrossTheWidth() {
-        assertEquals(0L, Seek.scrubDelta(0f, hour))
-        assertEquals(2 * hour, Seek.scrubDelta(1f, hour))
-        assertEquals(-2 * hour, Seek.scrubDelta(-1f, hour))
-        assertEquals(-2 * hour, Seek.scrubDelta(-3f, hour))
-        // A tenth of the width on an hour-long file: 7.2 s.
-        assertEquals(7_200L, Seek.scrubDelta(0.1f, hour))
-        // Half the width: a quarter of the length.
-        assertEquals(hour / 4, Seek.scrubDelta(0.5f, hour))
-        // Short files scrub as if a minute long.
-        assertEquals(120_000L, Seek.scrubDelta(1f, 10_000))
-        // Monotonic.
-        val steps = (0..20).map { Seek.scrubDelta(it / 20f, hour) }
-        assertTrue(steps.zipWithNext().all { (a, b) -> b > a })
+    fun scrubMovesTwoMinutesPerWidth() {
+        assertEquals(0L, Seek.scrubDelta(0f))
+        assertEquals(120_000L, Seek.scrubDelta(1f))
+        assertEquals(-120_000L, Seek.scrubDelta(-1f))
+        assertEquals(-120_000L, Seek.scrubDelta(-3f))
+        assertEquals(12_000L, Seek.scrubDelta(0.1f))
+        assertEquals(-60_000L, Seek.scrubDelta(-0.5f))
+        // From near the end of a file, a drag stops at its end.
+        assertEquals(hour, Seek.target(hour - 30_000, Seek.scrubDelta(1f), hour))
     }
 
     @Test

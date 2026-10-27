@@ -44,9 +44,9 @@ tracked files: the repository is public.
   stored in settings).
 - Jumps (`Seek.target`) stay within the file: back stops at 0; forward past the end lands
   on the end, so ExoPlayer moves to the next file (or restarts it in repeat one).
-- Scrubbing (`Seek.scrubDelta`): the delta is `sign(f) * |f|^3 * 2 * duration` for a drag
-  over the fraction `f` of the swipe area's width (files under a minute count as a
-  minute). Small drags are fine-grained; a full-width drag reaches anywhere. The target
+- Scrubbing (`Seek.scrubDelta`): linear, 2 minutes for a drag across the whole width of
+  the swipe area, whatever the file's length (the user's choice; at first it was
+  proportional to the length, which made drags on long files too coarse). The target
   shows in an overlay; the seek happens on release. Only the upper part of the player is
   the swipe area, so the slider and buttons keep their own gestures.
 - Saved playback (`PlaybackStore`): the queue in `files/queue.json` (written when the
@@ -116,8 +116,9 @@ files (three 20 s mp3 files and a subfolder, a 3 h mp3, m4a, flac, ogg, a jpg-on
 - Tapping the second of three files played it (2 / 3); +30s went to the third, +30s again
   to the first (repeat all); in repeat one +30s restarted the same file.
 - On the 3 h file: −30s at 0:00 stayed at 0; +2h, +30m, −10m, −5m, −1m landed exactly.
-- A drag over half the width showed "+50:56 → 1:21:15 / 3:00:00" and seeked there on
-  release; a short drag back moved 2 minutes.
+- A drag showed the target ("+50:56 → 1:21:15 / 3:00:00") and seeked there on release.
+  That was the first scrub mapping (proportional to the length); the 2-minute one that
+  replaced it is covered by unit tests only.
 - Up from the top of Music showed the root list; a second root (Podcasts) was added and
   opened; long-press → Remove took it off the list and deleted its cache; the files
   stayed.

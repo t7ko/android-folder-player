@@ -45,9 +45,9 @@ version and keeps offering updates.
   the file. Back stops at the start of the file; forward past its end goes on to the
   next file.
 - Drag left or right over the upper part of the player to seek: the target time shows
-  while you drag, and playback moves there when you let go. A short drag moves a few
-  seconds; dragging across the whole width moves as far as twice the file's length, so
-  any point can be reached. The slider below works as usual.
+  while you drag, and playback moves there when you let go. Dragging across the whole
+  width moves 2 minutes, half the width 1 minute, whatever the file's length. The slider
+  below works as usual.
 - Playback goes on with the app closed or the screen off, with controls in the
   notification, on the lock screen and on headsets. It pauses when headphones are
   unplugged.

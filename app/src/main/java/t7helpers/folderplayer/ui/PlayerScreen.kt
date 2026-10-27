@@ -172,7 +172,7 @@ private fun ScrubArea(state: PlayerState, position: Long, onSeek: (Long) -> Unit
     val currentPosition by rememberUpdatedState(position)
     val duration by rememberUpdatedState(state.durationMs)
     val seekTo by rememberUpdatedState(onSeek)
-    val target = Seek.target(startPosition, Seek.scrubDelta(dragX / width, duration), duration)
+    val target = Seek.target(startPosition, Seek.scrubDelta(dragX / width), duration)
 
     Box(
         modifier
@@ -187,7 +187,7 @@ private fun ScrubArea(state: PlayerState, position: Long, onSeek: (Long) -> Unit
                         }
                     },
                     onDragEnd = {
-                        if (dragging) seekTo(Seek.target(startPosition, Seek.scrubDelta(dragX / width, duration), duration))
+                        if (dragging) seekTo(Seek.target(startPosition, Seek.scrubDelta(dragX / width), duration))
                         dragging = false
                     },
                     onDragCancel = { dragging = false },
