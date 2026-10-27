@@ -9,7 +9,7 @@ GitHub release and uploads the APK. Obtainium on the phone finds new releases at
 https://github.com/t7ko/android-folder-player. Each step is skipped when already done,
 so the script can be run again after a failure.
 
-The token (fine-grained, Contents read and write on all repositories) is read
+The token (fine-grained, Contents read and write, covering this repository) is read
 from the file that github.tokenFile in local.properties names. It is never printed.
 #>
 $ErrorActionPreference = 'Stop'
