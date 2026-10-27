@@ -53,6 +53,10 @@ tracked files: the repository is public.
   queue changes), the index and position in preferences (on play/pause, file change,
   every 10 s while playing and when the service ends). The service loads them, paused, when
   it starts; `onPlaybackResumption` gives them to the system's media controls.
+- The player screen is always dark (the user's wish, 0.1.1): `FolderPlayerTheme(dark =
+  true)` around it, and `enableEdgeToEdge` with dark system bar styles while it shows, so
+  the status bar icons are light; the browser follows the phone's light or dark setting.
+  Checked on the emulator in light mode.
 - Icons are vector drawables in `res/drawable` (Material paths), not
   `material-icons-extended`, which is large.
 - English only, strings in code.

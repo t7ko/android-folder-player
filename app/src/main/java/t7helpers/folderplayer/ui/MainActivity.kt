@@ -1,9 +1,11 @@
 package t7helpers.folderplayer.ui
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -56,11 +58,21 @@ class MainActivity : ComponentActivity() {
                     if (location != null && root == null) go(null)
                 }
                 val playerShown = showPlayer && state.uri != null
+                LaunchedEffect(playerShown) {
+                    // Light status bar icons over the always-dark player.
+                    if (playerShown) {
+                        enableEdgeToEdge(SystemBarStyle.dark(Color.TRANSPARENT), SystemBarStyle.dark(Color.TRANSPARENT))
+                    } else {
+                        enableEdgeToEdge()
+                    }
+                }
                 BackHandler(enabled = playerShown || location != null) {
                     if (playerShown) showPlayer = false else go(location?.up())
                 }
                 when {
-                    playerShown -> PlayerScreen(player, onBack = { showPlayer = false })
+                    playerShown -> FolderPlayerTheme(dark = true) {
+                        PlayerScreen(player, onBack = { showPlayer = false })
+                    }
                     location == null || root == null -> RootsScreen(
                         roots,
                         state,

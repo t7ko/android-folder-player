@@ -10,10 +10,12 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
-/** Material You colors from the wallpaper where the phone has them (Android 12+). */
+/**
+ * Material You colors from the wallpaper where the phone has them (Android 12+). Light or
+ * dark as the phone is set, unless [dark] says otherwise (the player is always dark).
+ */
 @Composable
-fun FolderPlayerTheme(content: @Composable () -> Unit) {
-    val dark = isSystemInDarkTheme()
+fun FolderPlayerTheme(dark: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     val context = LocalContext.current
     val colors = when {
         Build.VERSION.SDK_INT >= 31 -> if (dark) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)

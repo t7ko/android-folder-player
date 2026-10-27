@@ -5,7 +5,7 @@ lectures and long recordings: pick folders, browse their subfolders, tap a file,
 files of that folder play one after another. Big jump buttons (30 seconds to 2 hours) and
 swiping over the player move through long files quickly.
 
-Status: version 0.1.0.
+Status: version 0.1.1.
 
 ## Install
 
@@ -48,6 +48,8 @@ version and keeps offering updates.
   while you drag, and playback moves there when you let go. Dragging across the whole
   width moves 2 minutes, half the width 1 minute, whatever the file's length. The slider
   below works as usual.
+- The player screen is always dark; the folder lists follow the phone's light or dark
+  setting.
 - Playback goes on with the app closed or the screen off, with controls in the
   notification, on the lock screen and on headsets. It pauses when headphones are
   unplugged.
